@@ -25,6 +25,7 @@ local plugins = {
 
     {
         'rose-pine/neovim',
+        event = 'ColorScheme',
         name = 'rose-pine',
         config = function()
             vim.cmd('colorscheme rose-pine')
@@ -38,9 +39,8 @@ local plugins = {
         end
     },
 
-    'RRethy/vim-illuminate',
     'rvmelkonian/move.vim',
-    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
     'nvim-treesitter/playground',
     'theprimeagen/harpoon',
     'puremourning/vimspector',
@@ -78,7 +78,7 @@ local plugins = {
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
-        build = {
+        dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
             "MunifTanjim/nui.nvim",
@@ -94,10 +94,9 @@ local plugins = {
         config = function() require("nvim-autopairs").setup {} end
     },
 
-
     {
         'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true }
+        dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true}
     },
 
     'lukas-reineke/indent-blankline.nvim',
