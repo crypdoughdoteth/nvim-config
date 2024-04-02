@@ -1,18 +1,16 @@
-require('rose-pine').setup({
-	disable_background = true,
+require('gruvbox').setup({
 })
 
 function ColorMyPencils(color)
-	color = color or "rose-pine"
-	vim.cmd("set colorcolumn=")
-	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-
+    color = color or "gruvbox"
+    vim.cmd("set colorcolumn=")
+    -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+    -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
 ColorMyPencils()
 
--- indent colors 
+-- indent colors
 
 local highlight = {
     "RainbowRed",
