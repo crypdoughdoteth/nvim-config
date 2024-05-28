@@ -19,7 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
     {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.2',
+        tag = '0.1.6',
         -- or                            , branch = '0.1.x',
         dependencies = { { 'nvim-lua/plenary.nvim' } }
     },
@@ -31,7 +31,7 @@ local plugins = {
     },
     {
         'ellisonleao/gruvbox.nvim',
---        event = 'ColorScheme',
+        --        event = 'ColorScheme',
         name = 'gruvbox',
         config = function()
             vim.cmd('colorscheme gruvbox')
@@ -112,11 +112,93 @@ local plugins = {
         dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true }
     },
 
-    'lukas-reineke/indent-blankline.nvim',
+    {
+        'lukas-reineke/indent-blankline.nvim',
+    },
 
     {
         "windwp/nvim-ts-autotag",
         config = function() require('nvim-ts-autotag').setup() end
+    },
+
+    {
+        'nvimdev/dashboard-nvim',
+        event = 'VimEnter',
+        config = function()
+            require('dashboard').setup {
+                -- config
+                theme = 'doom',
+                config = {
+                    header = { '',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '██████╗██████╗ ██╗   ██╗██████╗ ██████╗  ██████╗ ██╗   ██╗ ██████╗ ██╗  ██╗   ███████╗████████╗██╗  ██╗',
+                        '█╔════╝██╔══██╗╚██╗ ██╔╝██╔══██╗██╔══██╗██╔═══██╗██║   ██║██╔════╝ ██║  ██║   ██╔════╝╚══██╔══╝██║  ██║',
+                        '█║     ██████╔╝ ╚████╔╝ ██████╔╝██║  ██║██║   ██║██║   ██║██║  ███╗███████║   █████╗     ██║   ███████║',
+                        '█║     ██╔══██╗  ╚██╔╝  ██╔═══╝ ██║  ██║██║   ██║██║   ██║██║   ██║██╔══██║   ██╔══╝     ██║   ██╔══██║',
+                        '██████╗██║  ██║   ██║   ██║     ██████╔╝╚██████╔╝╚██████╔╝╚██████╔╝██║  ██║██╗███████╗   ██║   ██║  ██║',
+                        '╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═════╝  ╚═════╝  ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝',
+                        '                                                                                                       ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '                                                                                                           ',
+                        '' }, --your header
+                    center = {
+                        {
+                            icon = ' ',
+                            icon_hl = 'Title',
+                            desc = 'Browse Files',
+                            desc_hl = 'String',
+                            key = 'e',
+                            keymap = ' ',
+                            key_hl = 'Number',
+                            key_format = ' %s', -- remove default surrounding `[]`
+                            action = 'Ex'
+                        },
+                        {
+                            icon = ' ',
+                            desc = 'Ripgrep',
+                            key = 'g',
+                            keymap = ' ',
+                            key_format = ' %s', -- remove default surrounding `[]`
+                            action = 'Telescope live_grep'
+                        },
+                        {
+                            icon = ' ',
+                            desc = 'Mason',
+                            key = 'm',
+                            keymap = ' ',
+                            key_format = ' %s', -- remove default surrounding `[]`
+                            action = 'Mason'
+                        },
+                        {
+                            icon = ' ',
+                            desc = 'Lazy',
+                            key = 'l',
+                            keymap = ' ',
+                            key_format = ' %s', -- remove default surrounding `[]`
+                            action = 'Lazy'
+                        },
+                    },
+                    footer = {} --your footer
+                }
+            }
+        end,
+        dependencies = { { 'nvim-tree/nvim-web-devicons' } }
     },
 
     {

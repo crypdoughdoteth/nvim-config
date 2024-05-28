@@ -35,6 +35,15 @@ lsp.skip_server_setup({ 'rust_analyzer', 'tsserver', 'gopls' })
 
 lsp.setup()
 
+lsp.new_server({
+    name = 'circom-lsp',
+    cmd = { 'circom-lsp' },
+    filetypes = { 'circom' },
+    root_dir = function()
+        return lsp.dir.find_first({ 'package.json' }) or vim.api.nvim_buf_get_name(0)
+    end,
+})
+
 lsp.use('solidity', {
     cmd = { 'nomicfoundation-solidity-language-server', '--stdio' },
     filetypes = { 'solidity' },
@@ -131,3 +140,5 @@ vim.cmd([[
 set signcolumn=yes
 autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 ]])
+
+
