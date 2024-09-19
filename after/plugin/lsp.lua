@@ -1,7 +1,5 @@
-
 local lspconfig = require('lspconfig')
 lspconfig.gleam.setup({})
-
 local lsp = require('lsp-zero')
 
 lsp.preset('recommended')
@@ -18,7 +16,7 @@ require("mason").setup({
     }
 })
 require("mason-lspconfig").setup {
-    ensure_installed = { "gopls", "jdtls" },
+    ensure_installed = { "gopls", "jdtls", "ts_ls" },
     handlers = {
         function(server_name)
             require('lspconfig')[server_name].setup({})
@@ -44,7 +42,7 @@ lsp.on_attach(function(_, bufnr)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
-lsp.skip_server_setup({ 'rust_analyzer', 'tsserver', 'gopls' })
+lsp.skip_server_setup({ 'rust_analyzer', 'ts_ls', 'gopls' })
 
 lsp.setup()
 
@@ -64,10 +62,8 @@ lsp.use('solidity', {
     single_file_support = true,
 })
 
-local lspconfig = require("lspconfig")
-
 lspconfig.move_analyzer.setup {}
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
     settings = {
         tsserver = {
             inlayHints = true,
