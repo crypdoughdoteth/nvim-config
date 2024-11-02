@@ -1,4 +1,5 @@
 local lspconfig = require('lspconfig')
+local configs = require 'lspconfig.configs'
 lspconfig.gleam.setup({})
 local lsp = require('lsp-zero')
 
@@ -46,6 +47,21 @@ lsp.skip_server_setup({ 'rust_analyzer', 'ts_ls', 'gopls' })
 
 lsp.setup()
 
+lspconfig.hls.setup {
+    cmd = { "haskell-language-server-wrapper", "--lsp" },
+    filetypes = { "haskell", "lhaskell" },
+    settings = {
+        languageServerHaskell = {
+            formattingProvider = "stylish-haskell",
+            plugin = {
+                tactics = {
+                    globalOn = false
+                }
+            }
+        }
+    }
+}
+
 lsp.new_server({
     name = 'circom-lsp',
     cmd = { 'circom-lsp' },
@@ -62,7 +78,42 @@ lsp.use('solidity', {
     single_file_support = true,
 })
 
-lspconfig.move_analyzer.setup {}
+-- THIS IS HOW TO CREATE CUSTOM LS + ATTACH IT TO BUFFER
+
+-- vim.lsp.start({
+--     filetypes = {'move'},
+--     name = 'move-analyzer',
+--     cmd = { "move-analyzer" },
+--     root_dir = vim.fs.root(vim.fn.getcwd(), { 'Move.toml' }), -- Use PWD as project root dir.
+-- })
+-- 0 IS A SHORTHAND FOR CURRENT BUFFER
+-- 1 WAS ASSIGNED BY NVIM FOR THIS LS
+-- vim.lsp.buf_attach_client(0, 1)
+
+-- if not configs.noir_lsp then
+--     configs.noir_lsp = {
+--         default_config = {
+--             cmd = { 'nargo', 'lsp' },
+--             root_dir = lspconfig.util.root_pattern('.git'),
+--             filetypes = { 'noir' },
+--         },
+--     }
+-- end
+
+-- lspconfig.noir_lsp.setup {}
+
+-- ** Custom LSP server with nvim lsp client **
+-- if not configs.move_analyzer then
+--     configs.move_analyzer = {
+--         default_config = {
+--             cmd = { 'move-analyzer' },
+--             root_dir = lspconfig.util.root_pattern('.git'),
+--             filetypes = { 'move' },
+--         },
+--     }
+-- end
+-- lspconfig.move_analyzer.setup {}
+
 lspconfig.ts_ls.setup({
     settings = {
         tsserver = {

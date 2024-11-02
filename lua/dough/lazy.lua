@@ -113,10 +113,6 @@ local plugins = {
     },
 
     {
-        'lukas-reineke/indent-blankline.nvim',
-    },
-
-    {
         "windwp/nvim-ts-autotag",
         config = function() require('nvim-ts-autotag').setup() end
     },
