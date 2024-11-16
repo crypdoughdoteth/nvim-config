@@ -18,6 +18,20 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
     {
+        "lervag/vimtex",
+        lazy = false, -- we don't want to lazy load VimTeX
+        -- tag = "v2.15", -- uncomment to pin to a specific release
+        init = function()
+            -- VimTeX configuration goes here, e.g.
+            vim.g.vimtex_quickfix_mode = 2
+            vim.g.vimtex_compiler_latexmk_engines = { ["_"] = "-lualatex -shell-escape" }
+            vim.g.vimtex_indent_on_ampersands = 0
+            vim.g.vimtex_view_method = 'sioyek'
+            vim.g.matchup_override_vimtex = 1
+            vim.g.latexindent_opt = "-m"
+        end
+    },
+    {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.6',
         -- or                            , branch = '0.1.x',

@@ -1,5 +1,4 @@
 local lspconfig = require('lspconfig')
-local configs = require 'lspconfig.configs'
 lspconfig.gleam.setup({})
 local lsp = require('lsp-zero')
 
@@ -19,9 +18,21 @@ require("mason").setup({
 require("mason-lspconfig").setup {
     ensure_installed = { "gopls", "jdtls", "ts_ls" },
     handlers = {
+        function()
+            for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
+                local default_diagnostic_handler = vim.lsp.handlers[method]
+                vim.lsp.handlers[method] = function(err, result, context, config)
+                    if err ~= nil and err.code == -32802 then
+                        return
+                    end
+                    return default_diagnostic_handler(err, result, context, config)
+                end
+            end
+        end,
         function(server_name)
             require('lspconfig')[server_name].setup({})
         end,
+
 
         -- this is the "custom handler" for `jdtls`
         -- noop is an empty function that doesn't do anything
@@ -165,7 +176,7 @@ rust_tools.setup({
         on_attach = function(_, bufnr)
             vim.keymap.set('n', '<leader>ca', rust_tools.hover_actions.hover_actions, { buffer = bufnr })
             vim.keymap.set("n", "<Leader>a", rust_tools.code_action_group.code_action_group, { buffer = bufnr })
-        end
+        end,
     }
 })
 
@@ -496,3 +507,16 @@ vim.cmd([[
 set signcolumn=yes
 autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 ]])
+
+function SpellToggle()
+    if vim.opt.spell:get() then
+        vim.opt_local.spell = false
+        vim.opt_local.spelllang = "en"
+    else
+        vim.opt_local.spell = true
+        vim.opt_local.spelllang = { "en_us" }
+    end
+end
+
+vim.keymap.set("n", "<leader>5", ":lua SpellToggle()<cr>")
+vim.keymap.set("n", "<leader>z", "[s1z=``")
