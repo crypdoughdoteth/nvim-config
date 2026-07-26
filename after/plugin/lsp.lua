@@ -1,5 +1,14 @@
 local lspconfig = require('lspconfig')
 lspconfig.gleam.setup({})
+lspconfig.sourcekit.setup {
+    capabilities = {
+        workspace = {
+            didChangeWatchedFiles = {
+                dynamicRegistration = true,
+            },
+        },
+    },
+}
 local lsp = require('lsp-zero')
 
 lsp.preset('recommended')
@@ -16,7 +25,6 @@ require("mason").setup({
     }
 })
 require("mason-lspconfig").setup {
-    ensure_installed = { "gopls", "jdtls", "ts_ls" },
     handlers = {
         function()
             for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
@@ -60,7 +68,7 @@ lsp.setup()
 
 lspconfig.hls.setup {
     cmd = { "haskell-language-server-wrapper", "--lsp" },
-    filetypes = { "haskell", "lhaskell" },
+    filetypes = { "haskell", "lhaskell", "cabal" },
     settings = {
         languageServerHaskell = {
             formattingProvider = "stylish-haskell",

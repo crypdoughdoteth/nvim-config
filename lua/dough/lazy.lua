@@ -102,15 +102,15 @@ local plugins = {
     'nvim-lua/plenary.nvim',
     'mfussenegger/nvim-dap',
 
-    {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-            "MunifTanjim/nui.nvim",
-        }
-    },
+    -- {
+    --     "nvim-neo-tree/neo-tree.nvim",
+    --     branch = "v3.x",
+    --     dependencies = {
+    --         "nvim-lua/plenary.nvim",
+    --         "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+    --         "MunifTanjim/nui.nvim",
+    --     }
+    -- },
 
     {
         'vyperlang/vim-vyper',
@@ -131,7 +131,24 @@ local plugins = {
         config = function() require('nvim-ts-autotag').setup() end
     },
     'mfussenegger/nvim-jdtls',
+    {
+        'Julian/lean.nvim',
+        event = { 'BufReadPre *.lean', 'BufNewFile *.lean' },
 
+        dependencies = {
+            -- optional dependencies:
+
+            -- 'nvim-telescope/telescope.nvim', -- for Lean-specific pickers
+            -- 'andymass/vim-matchup',          -- for enhanced % motion behavior
+            -- 'andrewradev/switch.vim',        -- for switch support
+            -- 'tomtom/tcomment_vim',           -- for commenting
+        },
+
+        ---@type lean.Config
+        opts = { -- see the manual for full configuration options
+            mappings = true,
+        }
+    },
     {
         'nvimdev/dashboard-nvim',
         event = 'VimEnter',
