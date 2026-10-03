@@ -1,5 +1,5 @@
 vim.opt.guicursor = ""
-
+vim.opt.lazyredraw = false
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -31,7 +31,6 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "0"
 
 vim.opt.clipboard ="unnamedplus"
-
 
 --Set completeopt to have a better completion experience
 -- :help completeopt
